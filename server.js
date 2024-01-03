@@ -20,6 +20,28 @@ app.get("/test", (req, res) => {
   res.send("Our express server is running");
 });
 
+app.get("/create-table-tasks", async (req, res) => {
+  try {
+    const response = await pool.query(
+      "CREATE TABLE tasks ( task_id SERIAL PRIMARY KEY, project_id INT REFERENCES projects(project_id) ON DELETE CASCADE, task_name VARCHAR(100) NOT NULL, start_date DATE, end_date DATE, status VARCHAR(20) CHECK (status IN ('todo', 'inprogress', 'inreview', 'complete')), created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP );"
+    );
+    res.json(response.rows);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
+app.get("/create-table-project", async (req, res) => {
+  try {
+    const response = await pool.query(
+      "CREATE TABLE projects ( project_id SERIAL PRIMARY KEY, project_name VARCHAR(100) NOT NULL, created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP );"
+    );
+    res.json(response.rows);
+  } catch (error) {
+    console.log(error);
+  }
+});
+
 app.get("/projects", async (req, res) => {
   try {
     const response = await pool.query("SELECT * FROM projects");

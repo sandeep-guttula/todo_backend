@@ -1,13 +1,26 @@
 import pg from "pg";
 const { Pool } = pg;
+import dotenv from "dotenv";
+dotenv.config();
 
 const pool = new Pool({
   connectionString:
-    "postgres://default:RUOWSLi4c2pb@ep-calm-bird-61132800.us-east-1.postgres.vercel-storage.com:5432/verceldb",
+    "postgres://todo_task_xb0w_user:9bLv4thVoHIcQbLysKfwdm2rIQhdgWBX@dpg-cm84cr8cmk4c7390aba0-a.singapore-postgres.render.com/todo_task_xb0w",
   ssl: {
     rejectUnauthorized: false,
   },
 });
+
+// const pool = new Pool({
+//   user: "todo_task_xb0w_user",
+//   password: "9bLv4thVoHIcQbLysKfwdm2rIQhdgWBX",
+//   host: "dpg-cm84cr8cmk4c7390aba0-a",
+//   port: "5432",
+//   database: "todo_task_xb0w",
+//   ssl: {
+//     rejectUnauthorized: false,
+//   },
+// });
 
 // const pool = new Pool({
 //   user: "postgres",
